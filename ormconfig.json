@@ -1,0 +1,9 @@
+{
+    "type": "mysql",
+    "host": "localhost",
+    "username": "root",
+    "password": "",
+    "database": "poromomo",
+    "entities": ["./src/database/entity/**/*.{ts,.js}"],
+    "synchronize": true
+  }
