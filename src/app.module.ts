@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
 import { TaskController } from './sockets/tasks/task.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {TaskModule} from './sockets/tasks/task.module'
 import {Task} from './database/entity/task';
+import { GraphQLModule } from '@nestjs/graphql';
+import { UsersModule } from './nodes/users/users.module';
 
 ///qwdqwdw
 
@@ -16,9 +16,10 @@ import {Task} from './database/entity/task';
   "password": "",
   "database": "poromomo",
   "entities": [Task],
-  "synchronize": true}),TaskModule], 
-  controllers: [AppController],
-  providers: [AppService],
+  "synchronize": true}),
+  TaskModule,
+  GraphQLModule.forRoot({autoSchemaFile: true}),
+  UsersModule], 
 })
 
 export class AppModule { }
