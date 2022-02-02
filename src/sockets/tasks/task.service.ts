@@ -13,7 +13,7 @@ export class TaskSevice {
     task.name = "Me and Bears";
     let taskRepository = this.connection.getRepository(Task);
 
-   taskRepository.save(task);
+    taskRepository.save(task);
 
     console.log("task has been saved");
 

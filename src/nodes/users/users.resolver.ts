@@ -11,7 +11,7 @@ export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
   //Mutation request modifies server data
-  @Mutation(() => User)
+  @Mutation(() => String)
   createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
     return this.usersService.create(createUserInput);
   }
@@ -24,6 +24,7 @@ export class UsersResolver {
 
   @Query(() => User, { name: 'user' })
   findOne(@Args('id', { type: () => Int }) id: number) {
+    //return "asd";
     return this.usersService.findOne(id);
   }
 

@@ -5,6 +5,7 @@ import {TaskModule} from './sockets/tasks/task.module'
 import {Task} from './database/entity/task';
 import { GraphQLModule } from '@nestjs/graphql';
 import { UsersModule } from './nodes/users/users.module';
+import { User } from './nodes/users/entities/user.entity';
 
 ///qwdqwdw
 
@@ -15,7 +16,7 @@ import { UsersModule } from './nodes/users/users.module';
   "username": "root",
   "password": "",
   "database": "poromomo",
-  "entities": [Task],
+  "entities": [Task,User],
   "synchronize": true}),
   TaskModule,
   GraphQLModule.forRoot({autoSchemaFile: true}),
