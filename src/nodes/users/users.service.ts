@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { Task } from 'src/database/entity/task';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { Connection } from 'typeorm';
@@ -11,8 +10,11 @@ export class UsersService {
 
   constructor(private connection: Connection) {}
 
-  create(createUserInput: CreateUserInput) {
-    let user:User ={id:1,name:"qwd"}
+  async create(createUserInput: CreateUserInput) {
+
+    let userRepository = this.connection.getRepository(User);
+    let user:User = {id:null, name:createUserInput.name};
+    await userRepository.save(user);
     return createUserInput.name;
   }
 
