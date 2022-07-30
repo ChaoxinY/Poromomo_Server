@@ -9,6 +9,17 @@ export class CreateTaskInput {
   @Field(() => String)
   description: string;
 
-  // @Field(() => [TaskItem])
-  // taskItems: TaskItem[];
+  @Field(() => [TaksItemCreateInput])
+  items: TaksItemCreateInput[];
+}
+
+//Forced to use duplicated declartion to prevent crashing : https://github.com/MichalLytek/type-graphql/issues/76
+@InputType()
+class TaksItemCreateInput
+{
+  @Field(() => String)
+  description: string;
+
+  @Field(() => Boolean)
+  isDone: boolean;
 }

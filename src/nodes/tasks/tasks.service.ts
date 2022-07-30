@@ -1,17 +1,34 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Connection } from 'typeorm';
+import { TaskItem } from '../task-items/entities/task-item.entity';
 import { CreateTaskInput } from './dto/create-task.input';
 import { UpdateTaskInput } from './dto/update-task.input';
 import { Task } from './entities/task.entity';
 
 @Injectable()
 export class TasksService {
-  constructor(private connection: Connection) {}
+  constructor(private connection: Connection) { }
 
   async create(createTaskInput: CreateTaskInput) {
+
+    //Save task first
     let taskRepository = this.connection.getRepository(Task);
-    let task:Task = {id:null, description:createTaskInput.description,title:createTaskInput.title};
+    let task: Task = { id: null, description: createTaskInput.description, title: createTaskInput.title, taskItems:[] };
     await taskRepository.save(task);
+
+    //If there are any task items save them as well
+    let taskItemRepository = this.connection.getRepository(TaskItem);
+    let taskItems: TaskItem[] = [];
+    for (let i = 0; i < createTaskInput.items.length; i++) {
+      let input = createTaskInput.items[i];
+      let item = new TaskItem()
+      item.description= input.description;
+      item.isDone = input.isDone;
+      item.task = task;
+      taskItems.push(item);
+    }
+    await taskItemRepository.save(taskItems);
+
     return task;
   }
 

@@ -1,5 +1,6 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { ObjectType, Field, Int, InputType } from '@nestjs/graphql';
+import { Task } from 'src/nodes/tasks/entities/task.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
 
 @Entity()
 @ObjectType()
@@ -15,4 +16,8 @@ export class TaskItem {
   @Column()
   @Field(() => Boolean)
   isDone: boolean;
+
+  @Field(() => [Task])
+  @ManyToOne(() => Task, (task) => task.taskItems)
+  task: Task;
 }
