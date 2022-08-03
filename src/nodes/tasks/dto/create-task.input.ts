@@ -9,7 +9,7 @@ export class CreateTaskInput {
   @Field(() => String)
   description: string;
 
-  @Field(() => [TaksItemCreateInput])
+  @Field(() => [TaksItemCreateInput],{ nullable: true })
   items: TaksItemCreateInput[];
 }
 
