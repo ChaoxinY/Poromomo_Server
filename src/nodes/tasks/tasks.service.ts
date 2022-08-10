@@ -14,6 +14,13 @@ export class TasksService {
     //Save task first
     let taskRepository = this.connection.getRepository(Task);
     let task: Task = { id: null, description: createTaskInput.description, title: createTaskInput.title, taskItems: [] };
+    //If an id is given, update de entity instead.
+    if (createTaskInput.id != -1 && createTaskInput.id != null) {
+      task.id = createTaskInput.id;
+      Logger.log(task.id);
+    }
+
+    Logger.log(task.description);
     await taskRepository.save(task);
 
     //If there are any task items save them as well
@@ -21,7 +28,7 @@ export class TasksService {
       await this.createTaskItems(createTaskInput, task);
     }
     //If usage increase should retrun all new object to prevent a follow up call.
-    return task ;
+    return task;
   }
 
   async createTaskItems(createTaskInput: CreateTaskInput, task: Task) {
@@ -34,24 +41,28 @@ export class TasksService {
       item.description = input.description;
       item.isDone = input.isDone;
       item.task = task;
+      if (input.id != -1 && input.id != null) {
+        item.id = input.id;
+      }
       taskItems.push(item);
     }
     await taskItemRepository.save(taskItems);
   }
 
-  findAll() {
-    return `This action returns all tasks`;
+  async findAll() {
+    return await this.connection.getRepository(Task).find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} task`;
+  async findOne(id: number) {
+    return await this.connection.getRepository(Task).findOne(id)
   }
 
   update(id: number, updateTaskInput: UpdateTaskInput) {
     return `This action updates a #${id} task`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} task`;
+  async remove(id: number) {
+    await this.connection.getRepository(Task).delete(id)
+    return "done";
   }
 }

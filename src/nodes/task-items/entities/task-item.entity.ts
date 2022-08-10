@@ -18,6 +18,6 @@ export class TaskItem {
   isDone: boolean;
 
   @Field(() => [Task])
-  @ManyToOne(() => Task, (task) => task.taskItems)
+  @ManyToOne(() => Task, (task) => task.taskItems,{ onDelete: 'CASCADE' })
   task: Task;
 }

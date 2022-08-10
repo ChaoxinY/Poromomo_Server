@@ -17,7 +17,7 @@ export class Task {
   @Field(() => String)
   description: string;
 
-  @Field(() => [TaskItem])
-  @OneToMany(() => TaskItem, (taskItem) => taskItem.task)
+  @Field(() => [TaskItem], { nullable: true })
+  @OneToMany(() => TaskItem, (taskItem) => taskItem.task, { eager: true })
   taskItems: TaskItem[]
 }

@@ -28,7 +28,7 @@ export class TasksResolver {
     return this.tasksService.update(updateTaskInput.id, updateTaskInput);
   }
 
-  @Mutation(() => Task)
+  @Mutation(() => String)
   removeTask(@Args('id', { type: () => Int }) id: number) {
     return this.tasksService.remove(id);
   }

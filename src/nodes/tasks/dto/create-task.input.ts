@@ -3,6 +3,9 @@ import { TaskItem } from 'src/nodes/task-items/entities/task-item.entity';
 
 @InputType()
 export class CreateTaskInput {
+  @Field(() => Number,{nullable:true})
+  id:number;
+  
   @Field(() => String)
   title: string;
 
@@ -17,6 +20,9 @@ export class CreateTaskInput {
 @InputType()
 class TaksItemCreateInput
 {
+  @Field(() => Number,{nullable:true})
+  id:number;
+
   @Field(() => String)
   description: string;
 
