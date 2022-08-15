@@ -3,6 +3,7 @@ import { Connection } from 'typeorm';
 import { Task } from '../tasks/entities/task.entity';
 import { CreateTaskItemInput } from './dto/create-task-item.input';
 import { UpdateTaskItemInput } from './dto/update-task-item.input';
+import { TaskItem } from './entities/task-item.entity';
 
 @Injectable()
 export class TaskItemsService {
@@ -25,7 +26,8 @@ export class TaskItemsService {
     return `This action updates a #${id} taskItem`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} taskItem`;
+  async remove(id: number) {
+    await this.connection.getRepository(TaskItem).delete(id)
+    return "done";
   }
 }

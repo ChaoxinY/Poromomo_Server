@@ -28,7 +28,7 @@ export class TaskItemsResolver {
     return this.taskItemsService.update(updateTaskItemInput.id, updateTaskItemInput);
   }
 
-  @Mutation(() => TaskItem)
+  @Mutation(() => String)
   removeTaskItem(@Args('id', { type: () => Int }) id: number) {
     return this.taskItemsService.remove(id);
   }
